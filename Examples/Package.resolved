@@ -28,6 +28,24 @@
       }
     },
     {
+      "identity" : "graphiti",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/GraphQLSwift/Graphiti",
+      "state" : {
+        "revision" : "d8f83eec6a71536cd0f46172126a5985f1746a52",
+        "version" : "1.7.1"
+      }
+    },
+    {
+      "identity" : "graphql",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/GraphQLSwift/GraphQL.git",
+      "state" : {
+        "revision" : "7c910f22508b918900c7a91e53638184dc6504d4",
+        "version" : "2.5.0"
+      }
+    },
+    {
       "identity" : "grpc-swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/grpc/grpc-swift",

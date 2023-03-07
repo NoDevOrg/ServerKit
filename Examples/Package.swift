@@ -25,9 +25,13 @@ package.targets = [
     ], plugins: [
         .plugin(name: "SwiftProtobufPlugin", package: "SwiftProtobuf"),
         .plugin(name: "GRPCSwiftPlugin", package: "grpc-swift"),
-    ])
+    ]),
+    .executableTarget(name: "ExampleGraphQLServer", dependencies: [
+        .product(name: "ServerKit", package: "ServerKit"),
+    ]),
 ]
 
 package.products = [
     .executable(name: "ExampleGRPCServer", targets: ["ExampleGRPCServer"]),
+    .executable(name: "ExampleGraphQLServer", targets: ["ExampleGraphQLServer"]),
 ]
