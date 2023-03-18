@@ -17,7 +17,7 @@ jobs:
     - name: Docker PS
       run: docker ps
     - name: Test ExampleGraphQL Server
-      run: "curl --request POST --header 'content-type: application/json' --url http://localhost:9001 --data '{\"query\":\"query($name: String!) { \n  greet(name: $name)\n}\",\"variables\":{\"name\":\"Sami\"}}' -s | jq .data.greet"
+      run: "curl --request POST --header 'content-type: application/json' --url http://localhost:9001 --data '{\"query\":\"query($name: String!) { \n  greet(name: $name)\n}\",\"variables\":{\"name\":\"Sami\"}}'"
     - name: Stop ExampleGraphQL Server
       if: always()
       run: docker stop running
