@@ -1,0 +1,23 @@
+name: Example Docker
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Build ExampleGraphQL Server
+      run: docker build -f ./Examples/Sources/ExampleGraphQLServer/Dockerfile ./Examples -t examplegraphql
+    - name: Start ExampleGraphQL Server
+      run: docker run -p 9001:9001 --name running -d examplegraphql
+    - name: Docker PS
+      run: docker ps
+    - name: Test ExampleGraphQL Server
+      run: "curl --request POST --header 'content-type: application/json' --url http://localhost:9001 --data '{\"query\":\"query($name: String!) { \n  greet(name: $name)\n}\",\"variables\":{\"name\":\"Sami\"}}' -s | jq .data.greet"
+    - name: Stop ExampleGraphQL Server
+      if: always()
+      run: docker stop running
