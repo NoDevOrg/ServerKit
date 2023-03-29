@@ -65,10 +65,13 @@ extension Application.GraphQL {
             throw Abort(.internalServerError, reason: "GraphQL API not available.")
         }
 
+        let graphqlRequest = try request.graphql
         return try await api.execute(
-            request: request.graphql.query,
+            request: graphqlRequest.query,
             context: GraphQLContext(request: request),
-            on: application.eventLoopGroup)
+            on: application.eventLoopGroup,
+            variables: graphqlRequest.variables,
+            operationName: graphqlRequest.operationName)
     }
 
     func playground(request: Request) async throws -> Response {
