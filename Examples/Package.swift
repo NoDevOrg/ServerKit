@@ -8,7 +8,7 @@ package.platforms = [
 ]
 
 package.dependencies = [
-    .package(name: "ServerKit", path: "../"),
+    .package(url: "https://github.com/NoDevOrg/ServerKit", from: "1.0.0"),
 
     // Need to explicitly add packages that are included with ServerKit to use plugins
     .package(url: "https://github.com/apple/swift-protobuf", from: "1.0.0"),
@@ -28,6 +28,8 @@ package.targets = [
     ]),
     .executableTarget(name: "ExampleGraphQLServer", dependencies: [
         .product(name: "ServerKit", package: "ServerKit"),
+    ], resources: [
+        .copy("Dockerfile"),
     ]),
 ]
 
