@@ -38,9 +38,12 @@ package.targets = [
     ]),
     .executableTarget(name: "ExampleGraphQLServer", dependencies: [
         .product(name: "ServerKit", package: "ServerKit"),
-    ], resources: [
-        .copy("Dockerfile"),
     ]),
+    .executableTarget(name: "ExampleGraphQLSubgraphServer", dependencies: [
+        .product(name: "ServerKit", package: "ServerKit"),
+    ], resources: [
+        .copy("IDL"),
+    ])
 ]
 
 package.products = [
