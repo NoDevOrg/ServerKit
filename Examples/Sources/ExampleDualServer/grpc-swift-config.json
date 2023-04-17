@@ -1,0 +1,11 @@
+{
+    "invocations": [
+        {
+            "protoFiles": [
+                "IDL/grpc/Greeter.proto"
+            ],
+            "visibility": "public",
+            "server": true
+        }
+    ]
+}

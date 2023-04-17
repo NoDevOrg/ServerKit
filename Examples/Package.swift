@@ -8,7 +8,7 @@ package.platforms = [
 ]
 
 package.dependencies = [
-    .package(url: "https://github.com/NoDevOrg/ServerKit", from: "1.0.0"),
+    .package(name: "ServerKit", path: "../"),
 
     // Need to explicitly add packages that are included with ServerKit to use plugins
     .package(url: "https://github.com/apple/swift-protobuf", from: "1.0.0"),
@@ -16,6 +16,16 @@ package.dependencies = [
 ]
 
 package.targets = [
+    .executableTarget(name: "ExampleDualServer", dependencies: [
+        .product(name: "ServerKit", package: "ServerKit"),
+    ], resources: [
+        .copy("IDL"),
+        .copy("swift-protobuf-config.json"),
+        .copy("grpc-swift-config.json"),
+    ], plugins: [
+        .plugin(name: "SwiftProtobufPlugin", package: "SwiftProtobuf"),
+        .plugin(name: "GRPCSwiftPlugin", package: "grpc-swift"),
+    ]),
     .executableTarget(name: "ExampleGRPCServer", dependencies: [
         .product(name: "ServerKit", package: "ServerKit"),
     ], resources: [
@@ -34,6 +44,7 @@ package.targets = [
 ]
 
 package.products = [
+    .executable(name: "ExampleDualServer", targets: ["ExampleDualServer"]),
     .executable(name: "ExampleGRPCServer", targets: ["ExampleGRPCServer"]),
     .executable(name: "ExampleGraphQLServer", targets: ["ExampleGraphQLServer"]),
 ]

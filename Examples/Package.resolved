@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/async-kit.git",
       "state" : {
-        "revision" : "9acea4c92f51a5885c149904f0d11db4712dda80",
-        "version" : "1.16.0"
+        "revision" : "a61da00d404ec91d12766f1b9aac7d90777b484d",
+        "version" : "1.17.0"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/GraphQLSwift/Graphiti",
       "state" : {
-        "revision" : "64b180e08fe6dcd48d17485f167b8a49c16ad9e9",
-        "version" : "1.9.0"
+        "revision" : "b4942cf74de9443afa3f3a00f23b482a13aee736",
+        "version" : "1.10.0"
       }
     },
     {
@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/GraphQLSwift/GraphQL.git",
       "state" : {
-        "revision" : "7c910f22508b918900c7a91e53638184dc6504d4",
-        "version" : "2.5.0"
+        "revision" : "1b9d48ce0f0ad8280f75ce9914579aaac5881bc6",
+        "version" : "2.5.1"
       }
     },
     {
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/grpc/grpc-swift",
       "state" : {
-        "revision" : "f09cfb4d36315e2b48dbba1359179abf3cb2e6ac",
-        "version" : "1.14.2"
+        "revision" : "a20cac0cad4e0da457de687c45cb55aee9a45e19",
+        "version" : "1.14.1"
       }
     },
     {
@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/multipart-kit.git",
       "state" : {
-        "revision" : "0d55c35e788451ee27222783c7d363cb88092fab",
-        "version" : "4.5.2"
+        "revision" : "1adfd69df2da08f7931d4281b257475e32c96734",
+        "version" : "4.5.4"
       }
     },
     {
@@ -68,17 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/routing-kit.git",
       "state" : {
-        "revision" : "ffac7b3a127ce1e85fb232f1a6271164628809ad",
-        "version" : "4.6.0"
-      }
-    },
-    {
-      "identity" : "serverkit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/NoDevOrg/ServerKit",
-      "state" : {
-        "revision" : "f958740948c6d402ebcedd9c2f781829796a7425",
-        "version" : "1.0.1"
+        "revision" : "611bc45c5dfb1f54b84d99b89d1f72191fb6b71b",
+        "version" : "4.7.2"
       }
     },
     {
@@ -122,8 +113,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-crypto.git",
       "state" : {
-        "revision" : "da0fe44138ab86e380f40a2acbd8a611b07d3f64",
-        "version" : "2.4.0"
+        "revision" : "6d9c36b4beda0dae88feab6dc36206434bae713c",
+        "version" : "2.4.1"
       }
     },
     {
@@ -212,8 +203,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/vapor",
       "state" : {
-        "revision" : "d1a89f8f54c409751a5891a3dd22f78171be5741",
-        "version" : "4.74.1"
+        "revision" : "f4b00a5350238fe896d865d96d64f12fcbbeda95",
+        "version" : "4.76.0"
       }
     },
     {
@@ -221,8 +212,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/websocket-kit.git",
       "state" : {
-        "revision" : "2b8885974e8d9f522e787805000553f4f7cce8a0",
-        "version" : "2.7.0"
+        "revision" : "2166cbe932b29b6419f9cd751e8b27c647e1238e",
+        "version" : "2.8.0"
       }
     }
   ],
