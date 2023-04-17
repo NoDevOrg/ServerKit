@@ -21,6 +21,10 @@ extension Application.GraphQL {
 }
 
 extension Application.GraphQL {
+    enum ConfigurationError: Error {
+        case couldNotLoadFederationSDL
+    }
+
     public struct Configuration {
         public var path: PathComponent = ""
         public var playgroundPath: PathComponent = "graphql"
@@ -39,6 +43,18 @@ extension Application.GraphQL {
 
         public mutating func use(partial: GraphQLPartialSchema) {
             builder = builder.use(partials: [partial])
+        }
+
+        public mutating func setFederationSDL(sdl: String) {
+            builder = builder.setFederatedSDL(to: sdl)
+        }
+
+        /// Path to Federation Schema to load from bundle.
+        public mutating func loadFederationSDL(bundle: Bundle, resource: String, withExtension: String = "graphqls", subdirectory: String? = nil) throws {
+            guard let url = bundle.url(forResource: resource, withExtension: withExtension, subdirectory: subdirectory) else {
+                throw ConfigurationError.couldNotLoadFederationSDL
+            }
+            setFederationSDL(sdl: try String(contentsOf: url))
         }
     }
 
