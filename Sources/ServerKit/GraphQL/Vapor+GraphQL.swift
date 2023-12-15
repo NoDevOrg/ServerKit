@@ -77,6 +77,7 @@ extension Application.GraphQL {
         configuration.api = GraphQLAPI(
             resolver: GraphQLResolver(application: application),
             schema: try configuration.builder.build())
+        logServerInfo()
     }
 
     func executeGraphQLOperation(request: Request) async throws -> GraphQLResult {
@@ -105,6 +106,26 @@ extension Application.GraphQL {
                 return graphiql(path: configuration.path.description)
             }
         }()))
+    func getAddress() -> String {
+        let scheme = application.http.server.configuration.tlsConfiguration == nil ? "http" : "https"
+        let httpConfig = application.http.server.configuration
+        let address: String
+        switch httpConfig.address {
+        case .hostname(let hostname, port: let port):
+            address = "\(scheme)://\(hostname ?? httpConfig.hostname):\(port ?? httpConfig.port)"
+        case .unixDomainSocket(path: let path):
+            address = "\(scheme)+unix: \(path)"
+        }
+        return address
+    }
+
+    func logServerInfo() {
+        let address = getAddress()
+        application.logger.notice("GraphQL Server configured on \(address)/\(configuration.path)")
+        
+        if configuration.playgroundType != nil {
+            application.logger.notice("GraphQL Playground configured on \(address)/\(configuration.playgroundPath)")
+        }
     }
 }
 
