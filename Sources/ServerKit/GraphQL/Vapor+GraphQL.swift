@@ -45,6 +45,10 @@ extension Application.GraphQL {
             builder = builder.use(partials: [partial])
         }
 
+        public mutating func use(coders: Coders) {
+            builder = builder.setCoders(to: coders)
+        }
+
         public mutating func setFederationSDL(sdl: String) {
             builder = builder.setFederatedSDL(to: sdl)
         }
