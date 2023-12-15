@@ -26,7 +26,7 @@ extension Application.GraphQL {
     }
 
     public struct Configuration {
-        public var path: PathComponent = ""
+        public var path: PathComponent = "graphql"
         public var playgroundPath: PathComponent = "graphql"
         public var playgroundType: PlaygroundType? = .apollo
         var builder = SchemaBuilder(GraphQLResolver.self, GraphQLContext.self)
