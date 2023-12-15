@@ -26,9 +26,9 @@ extension Application.GraphQL {
     }
 
     public struct Configuration {
-        public var path: PathComponent = ""
+        public var path: PathComponent = "graphql"
         public var playgroundPath: PathComponent = "graphql"
-        public var playgroundType: PlaygroundType = .apollo
+        public var playgroundType: PlaygroundType? = .apollo
         var builder = SchemaBuilder(GraphQLResolver.self, GraphQLContext.self)
         var api: GraphQLAPI?
 
@@ -43,6 +43,10 @@ extension Application.GraphQL {
 
         public mutating func use(partial: GraphQLPartialSchema) {
             builder = builder.use(partials: [partial])
+        }
+
+        public mutating func use(coders: Coders) {
+            builder = builder.setCoders(to: coders)
         }
 
         public mutating func setFederationSDL(sdl: String) {
@@ -73,6 +77,7 @@ extension Application.GraphQL {
         configuration.api = GraphQLAPI(
             resolver: GraphQLResolver(application: application),
             schema: try configuration.builder.build())
+        logServerInfo()
     }
 
     func executeGraphQLOperation(request: Request) async throws -> GraphQLResult {
@@ -91,16 +96,39 @@ extension Application.GraphQL {
     }
 
     func playground(request: Request) async throws -> Response {
-        Response(status: .ok,
+        guard let playgroundType = configuration.playgroundType else { throw Abort(.notFound) }
+
+        let path = "\(getAddress())/\(configuration.path.description)"
+        let playground = switch playgroundType {
+        case .apollo: apolloSandbox(path: path)
+        case .graphiql: graphiql(path: path)
+        }
+
+        return Response(status: .ok,
                  headers: HTTPHeaders([(HTTPHeaders.Name.contentType.description, "text/html")]),
-                 body: Response.Body(string: {
-            switch configuration.playgroundType {
-            case .apollo:
-                return apolloSandbox(path: configuration.path.description)
-            case .graphiql:
-                return graphiql(path: configuration.path.description)
-            }
-        }()))
+                 body: Response.Body(string: { playground }()))
+    }
+
+    func getAddress() -> String {
+        let scheme = application.http.server.configuration.tlsConfiguration == nil ? "http" : "https"
+        let httpConfig = application.http.server.configuration
+        let address: String
+        switch httpConfig.address {
+        case .hostname(let hostname, port: let port):
+            address = "\(scheme)://\(hostname ?? httpConfig.hostname):\(port ?? httpConfig.port)"
+        case .unixDomainSocket(path: let path):
+            address = "\(scheme)+unix: \(path)"
+        }
+        return address
+    }
+
+    func logServerInfo() {
+        let address = getAddress()
+        application.logger.notice("GraphQL Server configured on \(address)/\(configuration.path)")
+        
+        if configuration.playgroundType != nil {
+            application.logger.notice("GraphQL Playground configured on \(address)/\(configuration.playgroundPath)")
+        }
     }
 }
 
