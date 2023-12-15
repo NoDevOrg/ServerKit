@@ -96,16 +96,19 @@ extension Application.GraphQL {
     }
 
     func playground(request: Request) async throws -> Response {
-        Response(status: .ok,
+        guard let playgroundType = configuration.playgroundType else { throw Abort(.notFound) }
+
+        let path = "\(getAddress())/\(configuration.path.description)"
+        let playground = switch playgroundType {
+        case .apollo: apolloSandbox(path: path)
+        case .graphiql: graphiql(path: path)
+        }
+
+        return Response(status: .ok,
                  headers: HTTPHeaders([(HTTPHeaders.Name.contentType.description, "text/html")]),
-                 body: Response.Body(string: {
-            switch configuration.playgroundType {
-            case .apollo:
-                return apolloSandbox(path: configuration.path.description)
-            case .graphiql:
-                return graphiql(path: configuration.path.description)
-            }
-        }()))
+                 body: Response.Body(string: { playground }()))
+    }
+
     func getAddress() -> String {
         let scheme = application.http.server.configuration.tlsConfiguration == nil ? "http" : "https"
         let httpConfig = application.http.server.configuration
